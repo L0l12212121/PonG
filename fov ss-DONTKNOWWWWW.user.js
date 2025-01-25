@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         fov ss
-// @version      DONT KNOWWWWW
-// @author       IDK DOEST MATTER LOL
+// @name         fov_doest_work gg 
+// @version      2.0
+// @author       cy
 // @match        *://diep.io/*
 // @run-at       document-start
 // ==/UserScript==
