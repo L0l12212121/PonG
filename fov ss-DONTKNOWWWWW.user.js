@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         fov_doest_work gg 
+// @name         old fov
 // @version      2.0
 // @author       cy
 // @match        *://diep.io/*
