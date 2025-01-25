@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Diep.io Base zones
+// @name         Diep.io Base zones Alert
 // @namespace    http://tampermonkey.net/
-// @version      0.0.1
-// @description  no.
-// @author       cy
+// @version      0.0.2
+// @description  .
+// @author       take the mi300 cords
 // @match        https://diep.io/*
 // @match        https://staging.diep.io/*
 // @match        https://mobile.diep.io/*
@@ -89,16 +89,17 @@ function setPlayerPos() {
 const timer1 = 1500;
 const timer2 = 3000;
 
-const blue_dan = 24.7;
-const blue_def = 19.7;
-const red_dan = 75.3;
-const red_def = 80.3;
+const blue_dan = 19.2;
+const blue_def = 15.5;
+const red_dan = 80.8;
+const red_def = 84.5;
 
-const def_radius = 17.5;
-const dan_radius = 23.5;
+const def_radius = 12.7;
+const dan_radius = 17.2;
 
 let def_not = false;
 let dan_not = false;
+let is_safe = true;
 
 const baseCenter = {
   blue: {
@@ -126,7 +127,7 @@ let generalInt = setInterval(() => {
 function checkZone() {
   const party_link_button = document.getElementById("copy-party-link");
   let playersTeam;
-   switch (party_link_button.className) {
+  switch (party_link_button.className) {
     case "active blue":
       playersTeam = "blue";
       break;
@@ -141,12 +142,14 @@ function checkZone() {
       break;
   }
 
-  if (lobby_gamemode == "teams") {
+   if (lobby_gamemode == "teams") {
     if (playersTeam != "blue") {
       if (playerX <= blue_def) {
         createNoti("def");
       } else if (playerX <= blue_dan) {
         createNoti("dan");
+      } else {
+        createNoti("safe");
       }
     }
     if (playersTeam != "red") {
@@ -154,38 +157,40 @@ function checkZone() {
         createNoti("def");
       } else if (playerX >= red_dan) {
         createNoti("dan");
+      } else  {
+        createNoti("safe");
       }
     }
-  }
-  if (lobby_gamemode == "4teams") {
+  }else if (lobby_gamemode == "4teams") {
     if (playersTeam != "blue") {
       if (calcRadius(baseCenter.blue, def_radius)) {
-        createNoti("def");
+        return createNoti("def");
       } else if (calcRadius(baseCenter.blue, dan_radius)) {
-        createNoti("dan");
+        return createNoti("dan");
       }
     }
     if (playersTeam != "red") {
       if (calcRadius(baseCenter.red, def_radius)) {
-        createNoti("def");
+        return createNoti("def");
       } else if (calcRadius(baseCenter.red, dan_radius)) {
-        createNoti("dan");
+        return createNoti("dan");
       }
     }
     if (playersTeam != "purple") {
       if (calcRadius(baseCenter.purple, def_radius)) {
-        createNoti("def");
+        return createNoti("def");
       } else if (calcRadius(baseCenter.purple, dan_radius)) {
-        createNoti("dan");
+        return createNoti("dan");
       }
     }
     if (playersTeam != "green") {
       if (calcRadius(baseCenter.green, def_radius)) {
-        createNoti("def");
+        return createNoti("def");
       } else if (calcRadius(baseCenter.green, dan_radius)) {
-        createNoti("dan");
+        return createNoti("dan");
       }
     }
+    createNoti("safe");
   }
 }
 
@@ -194,17 +199,29 @@ let dan_int;
 
 function createNoti(type) {
   if (type == "def" && !def_not) {
-    extern.inGameNotification("Base zones can atack!", "0xFF2989", timer1);
+    extern.inGameNotification("Base zones can atack~!", "0xC929FF", timer1);
     def_not = true;
-   def_int = setTimeout(() => {
+    def_int = setTimeout(() => {
       def_not = false;
     }, timer1);
+
+    clearInterval(dan_int);
+    dan_not = false;
   } else if (type == "dan" && !dan_not) {
-    extern.inGameNotification("Base zones can chase!", "0xC929FF", timer2);
+    extern.inGameNotification("Base zones can chase~!", "0xFF2989", timer2);
     dan_not = true;
     dan_int = setTimeout(() => {
       dan_not = false;
     }, timer2);
+
+    is_safe = false;
+    clearInterval(def_int);
+    def_not = false;
+  } else if (type == "safe" && !is_safe) {
+    extern.inGameNotification("Safe zone yay~!", "00FF88", timer2);
+    is_safe = true;
+    clearInterval(dan_int);
+    dan_not = false;
   }
 }
 function calcRadius(point, radius) {
