@@ -2,7 +2,7 @@
 // @name         Time
 // @namespace    http://tampermonkey.net/
 // @version      1.2
-// @author       cyyyyy
+// @author       cyro?..
 // @match        https://*diep.io/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
