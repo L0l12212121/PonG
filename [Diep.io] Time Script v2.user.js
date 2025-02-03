@@ -2,7 +2,7 @@
 // @name         Time
 // @namespace    http://tampermonkey.net/
 // @version      1.2
-// @author       cyro?..
+// @author       cyyyyy
 // @match        https://*diep.io/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
@@ -28,7 +28,7 @@
             'black 2px -0px 0px, black 0px -0px 10px, black -0px 2px 0px, black 0px 0px 0px, ' +
             'black -2px -2px 1px, black 0px -0px 0px, black -2px 2px 0px, black 0px 2px 0px, ' +
             '-1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black';
-        counterContainer.style.fontSize = '11px';
+        counterContainer.style.fontSize = '10px'; // Tamaño de fuente más pequeño
         counterContainer.style.zIndex = '1000';
         counterContainer.style.borderRadius = '5px';
         counterContainer.style.display = 'flex';
@@ -38,7 +38,7 @@
         ratioLabel = document.createElement('div');
         ratioLabel.textContent = 'Current Ratio:';
         ratioLabel.style.fontWeight = 'bold'; // Opcional: resaltar el texto
-        ratioLabel.style.marginBottom = '1px'; // Espacio entre el texto y el contador
+        ratioLabel.style.marginBottom = '0px'; // Espacio reducido entre el texto y el contador
 
         // Crear el contador de tiempo
         counter = document.createElement('div');
